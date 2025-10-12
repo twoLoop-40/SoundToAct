@@ -11,24 +11,40 @@
 - Python 3.13+
 - Node.js 20+
 - PortAudio (macOS의 경우)
+- uv (Python 패키지 매니저) - [설치 방법](#uv-설치하기)
 
-### 1. 저장소 이동
+---
+
+## 💻 운영체제별 설치 가이드
+
+### 🍎 macOS 사용자
+
+#### 1. 레포지토리 클론
 
 ```bash
-cd /Users/joonho/PyCharmMiscProject/SoundToAct
+git clone https://github.com/twoLoop-40/SoundToAct.git
+cd SoundToAct
 ```
 
-### 2. 백엔드 설치
+#### 2. uv 설치 (Python 패키지 매니저)
 
 ```bash
-# PortAudio 설치 (macOS - 마이크 입력용)
-brew install portaudio
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-# Python 의존성 설치
+#### 3. PortAudio 설치 (마이크 입력용)
+
+```bash
+brew install portaudio
+```
+
+#### 4. 백엔드 설치
+
+```bash
 uv sync
 ```
 
-### 3. 프론트엔드 설치
+#### 5. 프론트엔드 설치
 
 ```bash
 cd frontend
@@ -36,22 +52,203 @@ npm install
 cd ..
 ```
 
-### 4. 실행하기
+#### 6. 실행하기
 
-**터미널 1 - 백엔드 서버 실행:**
+**터미널 1 - 백엔드 서버:**
 ```bash
 uv run python main.py server --reload
 ```
 
-**터미널 2 - 프론트엔드 실행:**
+**터미널 2 - 프론트엔드:**
 ```bash
 cd frontend
 npm run dev
 ```
 
-### 5. 앱 열기
+#### 7. 브라우저에서 열기
 
-브라우저에서 http://localhost:3000 열기
+http://localhost:3000 접속
+
+---
+
+### 🪟 Windows 사용자
+
+#### 1. 필수 프로그램 설치
+
+**Python 3.13 설치:**
+1. https://www.python.org/downloads/ 방문
+2. "Download Python 3.13.x" 클릭
+3. 설치 시 **"Add Python to PATH"** 체크박스 반드시 선택
+4. "Install Now" 클릭
+
+**Node.js 설치:**
+1. https://nodejs.org/ 방문
+2. "LTS" 버전 다운로드 (20.x 이상)
+3. 설치 프로그램 실행
+
+**Git 설치:**
+1. https://git-scm.com/download/win 방문
+2. 64-bit Git for Windows Setup 다운로드
+3. 설치 프로그램 실행
+
+#### 2. 레포지토리 클론
+
+PowerShell 또는 Command Prompt를 열고:
+
+```powershell
+git clone https://github.com/twoLoop-40/SoundToAct.git
+cd SoundToAct
+```
+
+#### 3. uv 설치 (Python 패키지 매니저)
+
+PowerShell에서:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+설치 후 PowerShell을 **재시작**하세요.
+
+#### 4. 백엔드 설치
+
+```powershell
+uv sync
+```
+
+> **참고:** Windows에서는 PyAudio가 자동으로 설치됩니다. 별도의 PortAudio 설치가 필요 없습니다.
+
+#### 5. 프론트엔드 설치
+
+```powershell
+cd frontend
+npm install
+cd ..
+```
+
+#### 6. 실행하기
+
+**PowerShell 창 1 - 백엔드 서버:**
+```powershell
+uv run python main.py server --reload
+```
+
+**PowerShell 창 2 - 프론트엔드:**
+```powershell
+cd frontend
+npm run dev
+```
+
+> **💡 팁:**
+> - PowerShell 창을 2개 열려면: 시작 메뉴 → "PowerShell" 검색 → 2번 실행
+> - 또는 Windows Terminal 사용 시: `Ctrl + Shift + T`로 새 탭 열기
+
+#### 7. 브라우저에서 열기
+
+http://localhost:3000 접속
+
+#### ⚠️ Windows 문제 해결
+
+**"uv를 찾을 수 없습니다" 오류:**
+1. PowerShell을 **관리자 권한**으로 재시작
+2. `$env:Path` 확인
+3. uv 재설치
+
+**마이크 권한 오류:**
+1. 설정 → 개인정보 보호 → 마이크
+2. "앱이 마이크에 액세스하도록 허용" 활성화
+3. 브라우저(Chrome/Edge)에도 마이크 권한 허용
+
+**포트 충돌 오류:**
+```powershell
+# 8000 포트 사용 중인 프로세스 확인
+netstat -ano | findstr :8000
+
+# 다른 포트로 실행
+uv run python main.py server --port 8080
+```
+
+---
+
+### 🐧 Linux (Ubuntu/Debian) 사용자
+
+#### 1. 레포지토리 클론
+
+```bash
+git clone https://github.com/twoLoop-40/SoundToAct.git
+cd SoundToAct
+```
+
+#### 2. 필수 패키지 설치
+
+```bash
+# Python, Node.js, PortAudio 설치
+sudo apt update
+sudo apt install -y python3.13 python3-pip nodejs npm portaudio19-dev
+```
+
+#### 3. uv 설치
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+#### 4. 백엔드 설치
+
+```bash
+uv sync
+```
+
+#### 5. 프론트엔드 설치
+
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+#### 6. 실행하기
+
+**터미널 1:**
+```bash
+uv run python main.py server --reload
+```
+
+**터미널 2:**
+```bash
+cd frontend
+npm run dev
+```
+
+#### 7. 브라우저에서 열기
+
+http://localhost:3000 접속
+
+---
+
+## 📦 uv 설치하기
+
+uv는 빠른 Python 패키지 매니저입니다. 각 OS별 설치 방법:
+
+**macOS/Linux:**
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Windows (PowerShell):**
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+**수동 설치 (모든 OS):**
+```bash
+pip install uv
+```
+
+설치 확인:
+```bash
+uv --version
+```
 
 ## 📖 사용 방법
 
