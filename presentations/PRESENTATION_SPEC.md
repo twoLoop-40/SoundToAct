@@ -5,8 +5,8 @@
 ## 메타데이터
 
 - **대상 청중**: 선생님, 개발자
-- **예상 발표 시간**: 15-20분
-- **슬라이드 수**: 15-18장
+- **예상 발표 시간**: 10-15분
+- **슬라이드 수**: 12장
 - **디자인 톤**: 모던, 기술적, 전문적, 설명적
 
 ---
@@ -23,7 +23,7 @@ SoundToAct
 
 **부제목**
 ```
-Voice-Triggered Automation with Formal Type Specification
+Voice-Triggered Automation System
 ```
 
 **하단**
@@ -124,10 +124,10 @@ Voice-Triggered Automation with Formal Type Specification
    - 커스텀 액션 추가 가능
    - RESTful API 제공
 
-4. **🔒 타입 안전성**
-   - Idris2 형식 명세
-   - 컴파일 타임 검증
-   - 런타임 에러 최소화
+4. **🌐 웹 기반 인터페이스**
+   - React 19 프론트엔드
+   - 실시간 상태 업데이트
+   - 직관적인 UI/UX
 
 **비주얼**
 - 4개의 동일한 크기 박스
@@ -204,285 +204,19 @@ Voice-Triggered Automation with Formal Type Specification
 - Vite
 - Modern JavaScript
 
-**형식 명세**
-- Idris2
-- Dependent Types
-- Total Functions
-
 **인프라**
 - uvicorn (ASGI 서버)
 - uv (패키지 관리)
 - pytest (테스트)
 
 **비주얼**
-- 3-4개 컬럼
+- 3개 컬럼
 - 기술 로고 아이콘
 - 버전 정보 표시
 
 ---
 
-### 슬라이드 7: Idris2 타입 명세 소개
-
-**제목**
-```
-왜 형식 명세인가?
-Why Formal Specification?
-```
-
-**문제**
-```python
-# Python - 런타임 에러 가능
-def process(action_type: str):
-    if action_type == "call":
-        return call_action()
-    elif action_type == "music":
-        return music_action()
-    # 'lights' 빠뜨림! 💥 런타임 에러
-```
-
-**해결**
-```idris
--- Idris2 - 컴파일 타임 보장
-processAction : ActionType -> ActionResult
-processAction Call = callAction
-processAction Music = musicAction
-processAction Lights = lightsAction
--- 모든 케이스 커버됨 ✅ 컴파일 보장
-```
-
-**핵심 메시지**
-- 🔒 타입 안전성 → 런타임 에러 방지
-- ✅ Total Functions → 모든 함수가 종료 보장
-- 📐 수학적 증명 가능
-
-**비주얼**
-- 좌우 비교 레이아웃
-- 코드 블록 하이라이팅
-- ✅ / ❌ 아이콘
-
----
-
-### 슬라이드 8: 타입 명세 - 모듈 구조
-
-**제목**
-```
-Idris2 명세: 모듈화된 구조
-```
-
-**트리 다이어그램**
-```
-Specs.SoundToAct (메인)
-├── Specs.Types
-│   ├── ActionType
-│   ├── Keyword
-│   └── ActionResult
-├── Specs.Recognition
-│   ├── RecognitionEngine
-│   ├── RecognizerConfig
-│   └── MicrophoneState
-├── Specs.Errors
-│   ├── VoiceError
-│   └── VoiceResult
-├── Specs.Actions
-│   ├── ActionHandler
-│   └── ActionRegistry
-├── Specs.Keywords
-│   └── KeywordMappings
-├── Specs.VoiceListener
-│   └── VoiceListener
-└── Specs.API
-    └── REST API Types
-```
-
-**통계**
-- 8개 모듈
-- 632줄 코드
-- 100% 컴파일 성공
-- 0 런타임 에러 보장
-
-**비주얼**
-- 트리 구조
-- 각 모듈 색상 구분
-- 통계 박스
-
----
-
-### 슬라이드 9: 타입 명세 - 핵심 타입들
-
-**제목**
-```
-핵심 타입 정의
-```
-
-**코드 예제**
-
-```idris
--- 1. 확장 가능한 액션 타입
-ActionType : Type
-ActionType = String  -- "call", "music", "lights", ...
-
--- 2. 음성 인식 결과 (엔진 추적)
-data RecognitionResult
-  = Recognized RecognitionEngine String
-  | NotRecognized
-  | RecognitionError String
-
--- 3. 명시적 에러 처리
-data VoiceError
-  = MicrophoneNotInitialized
-  | AudioCaptureError String
-  | UnknownActionType ActionType
-
-VoiceResult : Type -> Type
-VoiceResult a = Either VoiceError a
-
--- 4. Total ActionHandler
-ActionHandler : Type
-ActionHandler = ActionParams -> ActionResult
-```
-
-**하단 메시지**
-- ✅ 모든 함수는 total (항상 종료)
-- ✅ 에러는 타입으로 표현 (예외 없음)
-- ✅ 컴파일 타임 검증
-
-**비주얼**
-- 코드 블록 중심
-- 주요 타입 하이라이팅
-- 각 타입별 간단한 설명
-
----
-
-### 슬라이드 10: 타입 명세 - Fallback 메커니즘
-
-**제목**
-```
-음성 인식 Fallback 체인
-```
-
-**다이어그램**
-```
-┌──────────────────┐
-│  사용자 음성     │
-└────────┬─────────┘
-         │
-         ▼
-┌──────────────────┐
-│ 1️⃣ Whisper Korean│ (로컬, 빠름)
-└────────┬─────────┘
-         │ 실패?
-         ▼
-┌──────────────────┐
-│ 2️⃣ Google Korean │ (클라우드, 정확)
-└────────┬─────────┘
-         │ 실패?
-         ▼
-┌──────────────────┐
-│ 3️⃣ Google English│ (최후의 수단)
-└────────┬─────────┘
-         │
-         ▼
-┌──────────────────┐
-│ RecognitionResult│
-└──────────────────┘
-```
-
-**타입 명세**
-```idris
-data RecognitionEngine
-  = WhisperKorean   -- 1순위
-  | GoogleKorean    -- 2순위
-  | GoogleEnglish   -- 3순위 (fallback)
-
--- 어떤 엔진이 성공했는지 추적
-data RecognitionResult
-  = Recognized RecognitionEngine String
-  | NotRecognized
-  | RecognitionError String
-```
-
-**비주얼**
-- 플로우차트
-- 단계별 번호 표시
-- 엔진별 특징 표시
-
----
-
-### 슬라이드 11: 타입 명세 - 속성 검증
-
-**제목**
-```
-검증된 속성들
-```
-
-**4개의 박스**
-
-1. **Totality (완전성)**
-   ```idris
-   %default total
-   -- 모든 함수가 항상 종료함을 증명
-   ```
-   ✅ 무한 루프 불가능
-
-2. **Type Safety (타입 안전성)**
-   ```idris
-   createAction : ActionRegistry ->
-                  ActionType ->
-                  VoiceResult ActionResult
-   ```
-   ✅ 잘못된 타입 컴파일 불가
-
-3. **Error Explicitness (에러 명시성)**
-   ```idris
-   VoiceResult a = Either VoiceError a
-   ```
-   ✅ 모든 에러가 타입으로 표현
-
-4. **Case Insensitivity (대소문자 무시)**
-   ```idris
-   Eq Keyword where
-     k1 == k2 = toLower k1 == toLower k2
-   ```
-   ✅ 키워드 비교 일관성 보장
-
-**비주얼**
-- 4개 그리드 레이아웃
-- 각 박스마다 코드 스니펫
-- ✅ 체크마크 강조
-
----
-
-### 슬라이드 12: Python 구현과의 매핑
-
-**제목**
-```
-명세 → 구현 매핑
-```
-
-**테이블**
-
-| Python 구현 | Idris2 명세 | 차이점 |
-|-------------|-------------|--------|
-| `action_type: str` | `ActionType = String` | ✅ 동일 |
-| Whisper→Google fallback | `RecognitionEngine` | ✅ 명시적 표현 |
-| `Optional[sr.Microphone]` | `MicrophoneState` | ✅ 타입 안전 |
-| `Dict[str, Callable]` | `List KeywordAction` | 구조적 차이 |
-| 예외 (Exception) | `VoiceError` | ✅ 명시적 타입 |
-| `sr.Recognizer` 설정 | `RecognizerConfig` | ✅ 완전 매핑 |
-
-**핵심 메시지**
-- 명세는 구현을 충실히 반영
-- 타입 안전성 추가
-- 런타임 → 컴파일 타임 검증
-
-**비주얼**
-- 깔끔한 테이블
-- 체크마크 / X표시
-- 색상 구분 (일치/차이)
-
----
-
-### 슬라이드 13: API & 통합
+### 슬라이드 7: API & 통합
 
 **제목**
 ```
@@ -533,7 +267,7 @@ GET    /status                 시스템 상태
 
 ---
 
-### 슬라이드 14: 데모 & 라이브 코딩
+### 슬라이드 8: 데모 & 라이브 코딩
 
 **제목**
 ```
@@ -576,7 +310,7 @@ GET    /status                 시스템 상태
 
 ---
 
-### 슬라이드 15: 성능 & 통계
+### 슬라이드 9: 성능 & 통계
 
 **제목**
 ```
@@ -591,11 +325,9 @@ GET    /status                 시스템 상태
 | 키워드 매칭 시간 | < 10ms |
 | API 응답 시간 | < 100ms |
 | 테스트 커버리지 | 81% |
-| Idris2 타입 검증 | 100% |
 
 **코드 통계**
 - Python: ~500 LOC
-- Idris2 명세: 632 LOC (8 모듈)
 - React: ~300 LOC
 - 테스트: ~400 LOC
 
@@ -612,7 +344,7 @@ GET    /status                 시스템 상태
 
 ---
 
-### 슬라이드 16: 확장 가능성
+### 슬라이드 10: 확장 가능성
 
 **제목**
 ```
@@ -639,15 +371,18 @@ GET    /status                 시스템 상태
    - 멀티 키워드 조합
 
 **구현 예제**
-```idris
--- 커스텀 액션 추가
-customAction : ActionHandler
-customAction params = ...
+```python
+# 커스텀 액션 추가
+def custom_action(params: dict) -> ActionResult:
+    name = params.get("name", "사용자")
+    return ActionResult(
+        status="success",
+        action_type="custom",
+        message=f"안녕하세요 {name}님"
+    )
 
-registry = registerAction
-  defaultRegistry
-  "custom"
-  customAction
+# 액션 등록
+listener.register_action("custom", custom_action)
 ```
 
 **비주얼**
@@ -657,7 +392,7 @@ registry = registerAction
 
 ---
 
-### 슬라이드 17: 향후 로드맵
+### 슬라이드 11: 향후 로드맵
 
 **제목**
 ```
@@ -668,8 +403,8 @@ registry = registerAction
 
 **Q1 2025**
 - ✅ 핵심 기능 완성
-- ✅ Idris2 타입 명세
 - ✅ RESTful API
+- ✅ 웹 인터페이스
 - 🔄 Twilio 전화 API 통합
 
 **Q2 2025**
@@ -696,7 +431,7 @@ registry = registerAction
 
 ---
 
-### 슬라이드 18: Q&A
+### 슬라이드 12: Q&A
 
 **제목**
 ```
@@ -894,11 +629,10 @@ Questions?
 발표 자료 제작 시 필요한 파일:
 
 **코드 스니펫**
-- `Specs/Types.idr` - 기본 타입 정의
-- `Specs/Recognition.idr` - 음성 인식 타입
-- `Specs/VoiceListener.idr` - 메인 로직
 - `app/voice_listener.py` - Python 구현
 - `app/api.py` - REST API
+- `app/actions.py` - 액션 핸들러
+- `main.py` - 메인 실행 파일
 
 **스크린샷 (캡처 필요)**
 - [ ] 웹 UI 메인 화면
@@ -906,7 +640,6 @@ Questions?
 - [ ] 음성 인식 결과 화면
 - [ ] API 문서 (Swagger)
 - [ ] 터미널 실행 화면
-- [ ] Idris2 컴파일 성공 화면
 
 **다이어그램 (제작 도구: draw.io / Figma)**
 - [ ] 시스템 아키텍처
@@ -924,7 +657,7 @@ Questions?
 ## 제작 체크리스트
 
 ### 슬라이드 제작
-- [ ] 모든 18개 슬라이드 작성
+- [ ] 모든 12개 슬라이드 작성
 - [ ] 일관된 디자인 적용
 - [ ] 폰트/색상 통일
 - [ ] 애니메이션 추가
@@ -954,9 +687,9 @@ Questions?
 ## 추가 리소스
 
 **참고 자료**
-- Idris2 공식 문서: https://idris2.readthedocs.io/
 - FastAPI 문서: https://fastapi.tiangolo.com/
 - Whisper 논문: https://arxiv.org/abs/2212.04356
+- React 공식 문서: https://react.dev/
 
 **발표 템플릿**
 - PowerPoint: Office 365

@@ -1,0 +1,310 @@
+{
+  "metadata": {
+    "title": "SoundToAct",
+    "subtitle": "음성으로 트리거하는 자동화 시스템",
+    "presenter": "TBD",
+    "date": "2025-10-26",
+    "target_audience": "선생님, 개발자",
+    "duration": "10-15분",
+    "total_slides": 12
+  },
+  "slides": [
+    {
+      "number": 1,
+      "title": "타이틀",
+      "subtitle": "Voice-Triggered Automation System",
+      "layout": "SingleColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "SoundToAct\n음성으로 트리거하는 자동화 시스템"
+        },
+        {
+          "language": "text",
+          "code": "Voice-Triggered Automation System"
+        }
+      ],
+      "visuals": [
+        "음성 웨이브폼 배경 이미지",
+        "마이크 아이콘",
+        "미니멀한 그라데이션"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 30
+    },
+    {
+      "number": 2,
+      "title": "문제 정의",
+      "subtitle": null,
+      "layout": "ThreeColumn",
+      "content": [
+        "1. **일상의 반복 작업**",
+        "- \"엄마에게 전화해야지...\" → 연락처 찾기 → 전화 걸기",
+        "- \"음악 틀어야지...\" → 앱 열기 → 검색 → 재생",
+        "2. **기존 솔루션의 한계**",
+        "- Siri/Google Assistant: 제한된 통합, 커스터마이징 어려움",
+        "- IFTTT/Zapier: 음성 트리거 부재, 복잡한 설정",
+        "3. **우리의 접근**",
+        "- 🎯 단순한 키워드로 즉시 실행",
+        "- 🔧 완전한 커스터마이징",
+        "- 🔒 타입 안전성 보장"
+      ],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "왜 음성 자동화인가?"
+        }
+      ],
+      "visuals": [
+        "3개의 컬럼 레이아웃 (문제 / 기존 방식 / 우리 방식)",
+        "아이콘: 🎤 💡 ⚙️"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 33
+    },
+    {
+      "number": 3,
+      "title": "데모 시나리오",
+      "subtitle": null,
+      "layout": "FullScreenDemo",
+      "content": [
+        "👤 사용자: \"엄마\"",
+        "🤖 시스템: [음성 인식] → [키워드 매칭] → [전화 걸기 액션]",
+        "📱 결과: 엄마에게 자동 전화 연결",
+        "👤 사용자: \"음악\"",
+        "🤖 시스템: [Whisper 인식] → [음악 재생 액션]",
+        "🎵 결과: 좋아하는 플레이리스트 재생",
+        "👤 사용자: \"불꺼\"",
+        "🤖 시스템: [Google Speech] → [스마트홈 연동]",
+        "💡 결과: 전체 조명 OFF"
+      ],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "실제 사용 시나리오"
+        },
+        {
+          "language": "text",
+          "code": "👤 사용자: \"엄마\"\n🤖 시스템: [음성 인식] → [키워드 매칭] → [전화 걸기 액션]\n📱 결과: 엄마에게 자동 전화 연결"
+        },
+        {
+          "language": "text",
+          "code": "👤 사용자: \"음악\"\n🤖 시스템: [Whisper 인식] → [음악 재생 액션]\n🎵 결과: 좋아하는 플레이리스트 재생"
+        },
+        {
+          "language": "text",
+          "code": "👤 사용자: \"불꺼\"\n🤖 시스템: [Google Speech] → [스마트홈 연동]\n💡 결과: 전체 조명 OFF"
+        }
+      ],
+      "visuals": [
+        "플로우차트 스타일",
+        "각 단계별 아이콘",
+        "시간 흐름 표시 (타임라인)"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 35
+    },
+    {
+      "number": 4,
+      "title": "핵심 기능",
+      "subtitle": null,
+      "layout": "FourQuadrant",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "핵심 기능"
+        }
+      ],
+      "visuals": [
+        "4개의 동일한 크기 박스",
+        "각 박스마다 대표 아이콘",
+        "간단한 수치/통계"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 37
+    },
+    {
+      "number": 5,
+      "title": "기술 아키텍처 (High-Level)",
+      "subtitle": null,
+      "layout": "SingleColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "시스템 아키텍처"
+        },
+        {
+          "language": "text",
+          "code": "┌─────────────┐\n│   사용자     │ \"엄마\"\n└──────┬──────┘\n       │ 음성\n       ▼\n┌─────────────────┐\n│  VoiceListener  │ 🎤\n│  - Whisper      │\n│  - Google API   │\n└────────┬────────┘\n         │ 인식된 텍스트\n         ▼\n┌─────────────────┐\n│ Keyword Matcher │ 🔍\n│ (case-insensitive)│\n└────────┬────────┘\n         │ 매칭된 키워드\n         ▼\n┌─────────────────┐\n│ ActionRegistry  │ ⚙️\n│ - Call          │\n│ - Music         │\n│ - Lights        │\n└────────┬────────┘\n         │ 실행\n         ▼\n┌─────────────────┐\n│   액션 실행     │ ✅\n└─────────────────┘"
+        }
+      ],
+      "visuals": [
+        "상하 플로우 다이어그램",
+        "각 컴포넌트 박스",
+        "화살표로 데이터 흐름 표시"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 36
+    },
+    {
+      "number": 6,
+      "title": "기술 스택",
+      "subtitle": null,
+      "layout": "ThreeColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "기술 스택"
+        }
+      ],
+      "visuals": [
+        "3개 컬럼",
+        "기술 로고 아이콘",
+        "버전 정보 표시"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 30
+    },
+    {
+      "number": 7,
+      "title": "API & 통합",
+      "subtitle": null,
+      "layout": "SingleColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "RESTful API"
+        },
+        {
+          "language": "text",
+          "code": "POST   /keywords               키워드 등록\nGET    /keywords               키워드 목록\nDELETE /keywords/{keyword}     키워드 삭제\n\nPOST   /listen                 음성 인식 (1회)\nPOST   /listen/test?text=엄마  테스트 (마이크 없이)\n\nGET    /status                 시스템 상태"
+        },
+        {
+          "language": "json",
+          "code": "// POST /keywords\n{\n  \"keyword\": \"엄마\",\n  \"action_type\": \"call\",\n  \"action_params\": {\n    \"contact\": \"엄마\",\n    \"number\": \"01012345678\"\n  }\n}\n\n// Response\n{\n  \"keyword\": \"엄마\",\n  \"action_type\": \"call\",\n  \"is_active\": true\n}"
+        }
+      ],
+      "visuals": [
+        "엔드포인트 리스트",
+        "JSON 예제",
+        "API 문서 스크린샷"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 34
+    },
+    {
+      "number": 8,
+      "title": "데모 & 라이브 코딩",
+      "subtitle": null,
+      "layout": "FullScreenDemo",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "🎬 라이브 데모"
+        }
+      ],
+      "visuals": [
+        "스크린샷/비디오",
+        "터미널 화면",
+        "브라우저 UI"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 37
+    },
+    {
+      "number": 9,
+      "title": "성능 & 통계",
+      "subtitle": null,
+      "layout": "SingleColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "성능 지표"
+        }
+      ],
+      "visuals": [
+        "막대 그래프",
+        "숫자 강조",
+        "깔끔한 테이블"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 33
+    },
+    {
+      "number": 10,
+      "title": "확장 가능성",
+      "subtitle": null,
+      "layout": "ThreeColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "확장 시나리오"
+        },
+        {
+          "language": "python",
+          "code": "# 커스텀 액션 추가\ndef custom_action(params: dict) -> ActionResult:\n    name = params.get(\"name\", \"사용자\")\n    return ActionResult(\n        status=\"success\",\n        action_type=\"custom\",\n        message=f\"안녕하세요 {name}님\"\n    )\n\n# 액션 등록\nlistener.register_action(\"custom\", custom_action)"
+        }
+      ],
+      "visuals": [
+        "3개 컬럼",
+        "각 방향별 아이콘",
+        "코드 예제"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 40
+    },
+    {
+      "number": 11,
+      "title": "향후 로드맵",
+      "subtitle": null,
+      "layout": "SingleColumn",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "로드맵"
+        }
+      ],
+      "visuals": [
+        "타임라인 그래프",
+        "각 항목 상태 표시 (✅/🔄/📋)",
+        "마일스톤 강조"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 39
+    },
+    {
+      "number": 12,
+      "title": "Q&A",
+      "subtitle": null,
+      "layout": "FullScreenDemo",
+      "content": [],
+      "code_blocks": [
+        {
+          "language": "text",
+          "code": "Q & A"
+        },
+        {
+          "language": "text",
+          "code": "질문이 있으신가요?\nQuestions?"
+        }
+      ],
+      "visuals": [
+        "미니멀 디자인",
+        "큰 폰트",
+        "QR 코드",
+        "연락처 정보"
+      ],
+      "speaker_notes": null,
+      "estimated_time": 30
+    }
+  ]
+}

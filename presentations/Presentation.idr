@@ -4,8 +4,8 @@
 ||| for explaining SoundToAct to teachers (developers).
 |||
 ||| Target Audience: High school student → Teacher (Developer)
-||| Duration: 15-20 minutes
-||| Slides: 18 slides
+||| Duration: 8-10 minutes
+||| Slides: 10 slides (story-driven, visual-focused)
 module Presentation
 
 import Data.Vect
@@ -233,7 +233,7 @@ record Presentation (n : Nat) where
 -- Slide Definitions
 --------------------------------------------------------------------------------
 
-||| Slide 1: Title Slide
+||| Slide 1: Title Slide - 깔끔하고 임팩트 있게
 export
 titleSlide : Slide
 titleSlide = MkSlide
@@ -241,200 +241,229 @@ titleSlide = MkSlide
   TitleSlide
   (MkSlideContent
     "SoundToAct"
-    (Just "음성으로 트리거하는 자동화 시스템")
-    [ "Voice-Triggered Automation with Formal Type Specification"
-    , ""
-    , "고등학생이 만든 타입 안전한 음성 자동화 시스템"
+    (Just "말 한마디로 움직이는 세상")
+    [ "고등학생 개발자 [이름]"
+    , "2025년 10월"
     ]
     []
-    []
-    (Just "인사 및 프로젝트 소개. 타입 안전성을 강조."))
+    [ MkVisual ImageContent "음성 웨이브폼 애니메이션" "wave-animation"
+    , MkVisual ImageContent "마이크 아이콘 (큼직하게)" "mic-icon-large"
+    ]
+    (Just "간단한 자기소개. 프로젝트 이름의 의미: Sound → Act (소리가 행동으로)"))
   [MkAnimation Fade 0.5 0.0]
-  60
+  45
 
-||| Slide 2: Problem Definition
+||| Slide 2: My Daily Life - 스토리로 공감 유도
 export
 problemSlide : Slide
 problemSlide = MkSlide
   2
-  ThreeColumn
+  SingleColumn
   (MkSlideContent
-    "왜 음성 자동화인가?"
+    "나의 아침"
     Nothing
-    [ "일상의 반복 작업:"
-    , "- '엄마에게 전화해야지...' → 연락처 찾기 → 전화 걸기"
-    , "- '음악 틀어야지...' → 앱 열기 → 검색 → 재생"
+    [ "⏰ 7:00 AM - 일어나자마자"
     , ""
-    , "기존 솔루션의 한계:"
-    , "- Siri/Google Assistant: 제한된 통합"
-    , "- IFTTT/Zapier: 음성 트리거 부재"
-    , ""
-    , "우리의 접근:"
-    , "- 🎯 단순한 키워드로 즉시 실행"
-    , "- 🔧 완전한 커스터마이징"
-    , "- 🔒 타입 안전성 보장"
+    , "\"엄마한테 전화해야 하는데...\""
     ]
     []
-    []
-    (Just "문제 상황 공감 유도 → 기존 방식의 한계 → 우리 솔루션의 차별점"))
-  [MkAnimation Fade 0.5 0.2]
-  90
+    [ MkVisual ImageContent "만화 스타일 일러스트: 침대에서 일어나는 학생" "morning-illustration"
+    , MkVisual DiagramContent "복잡한 과정 플로우: 폰 찾기 → 잠금 해제 → 연락처 앱 → 검색 → 터치" "complicated-flow"
+    , MkVisual ImageContent "시계 아이콘: '2분 소요'" "time-wasted"
+    ]
+    (Just "개인적 경험으로 시작. 청중이 공감할 수 있는 일상적 상황. 시각적으로 복잡한 과정 강조."))
+  [MkAnimation Appear 0.3 0.1]
+  60
 
-||| Slide 3: Demo Scenarios
+||| Slide 3: The Big Idea - 큰 질문으로 호기심 유발
 export
 demoSlide : Slide
 demoSlide = MkSlide
   3
-  SingleColumn
+  TitleSlide
   (MkSlideContent
-    "실제 사용 시나리오"
-    Nothing
-    [ "시나리오 1: 아침 루틴"
-    , "👤 사용자: '엄마'"
-    , "🤖 시스템: [음성 인식] → [키워드 매칭] → [전화 걸기 액션]"
-    , "📱 결과: 엄마에게 자동 전화 연결"
-    , ""
-    , "시나리오 2: 휴식 시간"
-    , "👤 사용자: '음악'"
-    , "🤖 시스템: [Whisper 인식] → [음악 재생 액션]"
-    , "🎵 결과: 좋아하는 플레이리스트 재생"
-    , ""
-    , "시나리오 3: 취침 전"
-    , "👤 사용자: '불꺼'"
-    , "🤖 시스템: [Google Speech] → [스마트홈 연동]"
-    , "💡 결과: 전체 조명 OFF"
+    "만약..."
+    (Just "말 한마디면 된다면?")
+    [ "그냥 \"엄마\"라고 말하면"
+    , "자동으로 전화가 걸린다면?"
     ]
     []
-    []
-    (Just "3가지 시나리오로 실용성 강조. 플로우차트 강조."))
-  [MkAnimation Appear 0.3 0.0]
-  120
+    [ MkVisual ImageContent "큰 물음표 아이콘" "question-mark-large"
+    , MkVisual ImageContent "말풍선 안에 '엄마'" "speech-bubble"
+    , MkVisual ImageContent "빛나는 효과 (반짝이는 전구)" "light-bulb-idea"
+    ]
+    (Just "질문으로 청중의 상상력 자극. 간단명료하게. 아이디어의 핵심을 제시."))
+  [MkAnimation ZoomIn 0.5 0.0]
+  45
 
-||| Slide 7: Why Formal Specification
+||| Slide 4: The Solution - 해결책 제시
 export
-formalSpecSlide : Slide
-formalSpecSlide = MkSlide
+featuresSlide : Slide
+featuresSlide = MkSlide
+  4
+  SingleColumn
+  (MkSlideContent
+    "그래서 만들었습니다"
+    (Just "SoundToAct")
+    [ "말만 하면 작동하는 시스템"
+    ]
+    []
+    [ MkVisual ImageContent "프로젝트 로고 (크게)" "soundtoact-logo"
+    , MkVisual VideoContent "10초 데모 영상: '엄마' → 전화 걸림" "quick-demo-video"
+    , MkVisual ImageContent "Before/After 비교 이미지" "before-after"
+    ]
+    (Just "짧은 데모 영상으로 임팩트. 복잡한 설명 없이 바로 작동하는 모습 보여주기."))
+  [MkAnimation Appear 0.3 0.0]
+  60
+
+||| Slide 5: How It Works - 3단계로 간단하게
+export
+architectureSlide : Slide
+architectureSlide = MkSlide
+  5
+  ThreeColumn
+  (MkSlideContent
+    "어떻게 작동할까?"
+    Nothing
+    []
+    []
+    [ MkVisual DiagramContent "1단계: 듣기 - 마이크 아이콘 + 음성 웨이브" "step1-listen"
+    , MkVisual DiagramContent "2단계: 이해하기 - AI 뇌 + 키워드 매칭" "step2-understand"
+    , MkVisual DiagramContent "3단계: 실행하기 - 액션 아이콘 (전화, 음악, 조명)" "step3-act"
+    , MkVisual DiagramContent "화살표로 연결된 3단계 플로우" "flow-arrows"
+    ]
+    (Just "3단계만 강조. 기술적 용어 배제. 아이콘과 그림으로만 표현."))
+  [MkAnimation Appear 0.3 0.2]
+  75
+
+||| Slide 6: Live Demo - 실제 작동 모습
+export
+techStackSlide : Slide
+techStackSlide = MkSlide
+  6
+  FullScreenDemo
+  (MkSlideContent
+    "실제로 보여드릴게요"
+    Nothing
+    [ "🎬 라이브 데모"
+    ]
+    []
+    [ MkVisual VideoContent "실제 사용 데모 영상 (30초)" "live-demo-full"
+    , MkVisual ImageContent "데모 스크린샷 (백업)" "demo-screenshot"
+    ]
+    (Just "실제 작동하는 모습. 영상: '엄마' 말하기 → 전화 걸림, '음악' → 재생됨, '불꺼' → 조명 OFF"))
+  [MkAnimation Appear 0.3 0.0]
+  90
+
+||| Slide 7: What It Gave Me - 나에게 준 변화
+export
+apiSlide : Slide
+apiSlide = MkSlide
   7
-  CodeComparison
+  TwoColumn
   (MkSlideContent
-    "왜 형식 명세인가?"
-    (Just "Why Formal Specification?")
-    [ "🔒 타입 안전성 → 런타임 에러 방지"
-    , "✅ Total Functions → 모든 함수가 종료 보장"
-    , "📐 수학적 증명 가능"
-    ]
-    [ MkCodeBlock Python
-        "# Python - 런타임 에러 가능\ndef process(action_type: str):\n    if action_type == \"call\":\n        return call_action()\n    elif action_type == \"music\":\n        return music_action()\n    # 'lights' 빠뜨림! 💥 런타임 에러"
-        (Just "Python: 불완전한 패턴 매칭")
-    , MkCodeBlock Idris
-        "-- Idris2 - 컴파일 타임 보장\nprocessAction : ActionType -> ActionResult\nprocessAction Call = callAction\nprocessAction Music = musicAction\nprocessAction Lights = lightsAction\n-- 모든 케이스 커버됨 ✅ 컴파일 보장"
-        (Just "Idris2: 완전한 패턴 매칭 강제")
-    ]
+    "나에게 준 변화"
+    Nothing
     []
-    (Just "핵심: Python은 런타임에 실패, Idris2는 컴파일 타임에 보장. 타입 시스템의 힘을 강조."))
-  [MkAnimation Fade 0.5 0.0]
-  180
+    []
+    [ MkVisual DiagramContent "Before: 복잡한 과정 (2분)" "before-complex"
+    , MkVisual DiagramContent "After: 말 한마디 (2초)" "after-simple"
+    , MkVisual ImageContent "숫자 강조: 60배 빨라짐" "speed-comparison"
+    , MkVisual ImageContent "하루 30분 절약" "time-saved"
+    ]
+    (Just "Before/After 비교로 효과 시각화. 숫자로 임팩트 강조."))
+  [MkAnimation Fade 0.5 0.2]
+  60
 
-||| Slide 8: Module Structure
+||| Slide 8: For Others Too - 다른 사람들도
 export
-moduleStructureSlide : Slide
-moduleStructureSlide = MkSlide
+demoLiveSlide : Slide
+demoLiveSlide = MkSlide
   8
+  ThreeColumn
+  (MkSlideContent
+    "다른 사람들도 쓸 수 있어요"
+    Nothing
+    []
+    []
+    [ MkVisual ImageContent "시나리오 1: 어르신 - 큰 글씨 필요없이" "elderly-scenario"
+    , MkVisual ImageContent "시나리오 2: 바쁜 직장인 - 운전 중에도" "worker-scenario"
+    , MkVisual ImageContent "시나리오 3: 장애인 - 손 사용 불편해도" "disability-scenario"
+    , MkVisual DiagramContent "모두를 위한 기술" "inclusive-tech"
+    ]
+    (Just "사회적 가치 강조. 다양한 사람들이 혜택 받을 수 있음. 포용적 기술."))
+  [MkAnimation Appear 0.3 0.2]
+  75
+
+||| Slide 9: My Dream - 앞으로의 꿈
+export
+metricsSlide : Slide
+metricsSlide = MkSlide
+  9
   SingleColumn
   (MkSlideContent
-    "Idris2 명세: 모듈화된 구조"
-    Nothing
-    [ "Specs.SoundToAct (메인 모듈)"
-    , "├── Specs.Types (기본 타입)"
-    , "│   ├── ActionType"
-    , "│   ├── Keyword"
-    , "│   └── ActionResult"
-    , "├── Specs.Recognition (음성 인식)"
-    , "│   ├── RecognitionEngine"
-    , "│   ├── RecognizerConfig"
-    , "│   └── MicrophoneState"
-    , "├── Specs.Errors (에러 타입)"
-    , "│   ├── VoiceError"
-    , "│   └── VoiceResult"
-    , "├── Specs.Actions (액션 시스템)"
-    , "│   ├── ActionHandler"
-    , "│   └── ActionRegistry"
-    , "├── Specs.Keywords (키워드 매핑)"
-    , "├── Specs.VoiceListener (메인 로직)"
-    , "└── Specs.API (REST API 타입)"
-    , ""
-    , "통계: 8개 모듈, 632줄, 100% 컴파일 성공"
+    "나의 꿈"
+    (Just "모두가 기술의 혜택을 받는 세상")
+    [ "더 많은 사람들에게"
+    , "더 편리한 생활을"
     ]
     []
-    [ MkVisual DiagramContent "모듈 트리 구조" "tree-diagram" ]
-    (Just "8개 모듈로 깔끔하게 분리. 각 모듈의 역할 설명."))
-  [MkAnimation Appear 0.3 0.0]
-  120
+    [ MkVisual ImageContent "지구 아이콘 + 연결된 사람들" "connected-world"
+    , MkVisual ImageContent "밝은 미래 이미지" "bright-future"
+    , MkVisual DiagramContent "확장 가능성: 스마트홈, 자동차, 가전제품..." "expansion-vision"
+    ]
+    (Just "개인적 비전 제시. 기술의 사회적 가치. 청중에게 영감 주기."))
+  [MkAnimation ZoomIn 0.5 0.0]
+  60
+
+||| Slide 10: Q&A - 마무리
+export
+extensibilitySlide : Slide
+extensibilitySlide = MkSlide
+  10
+  TitleSlide
+  (MkSlideContent
+    "감사합니다"
+    (Just "질문 받겠습니다")
+    [ "여러분도 말 한마디로"
+    , "세상을 바꿀 수 있습니다"
+    ]
+    []
+    [ MkVisual ImageContent "QR 코드 (GitHub)" "qr-code-github"
+    , MkVisual ImageContent "SoundToAct 로고" "logo-final"
+    ]
+    (Just "감사 인사. 영감을 주는 마무리 멘트. GitHub QR 코드 제공."))
+  [MkAnimation Fade 0.5 0.0]
+  45
 
 --------------------------------------------------------------------------------
 -- Presentation Instance
 --------------------------------------------------------------------------------
 
-||| SoundToAct presentation for teachers (18 slides)
+||| SoundToAct presentation for teachers (10 slides - story-driven, visual-focused)
 export
-soundToActPresentation : Presentation 18
+soundToActPresentation : Presentation 10
 soundToActPresentation = MkPresentation
   (MkMeta
     "SoundToAct"
-    "음성으로 트리거하는 자동화 시스템"
+    "말 한마디로 움직이는 세상"
     "고등학생 개발자"
     "2025-10-26"
     "선생님 (개발자)"
-    20
-    18)
+    10
+    10)
   soundToActPalette
   standardTypography
   [ titleSlide
   , problemSlide
   , demoSlide
-  , MkSlide 4 FourQuadrant
-      (MkSlideContent "핵심 기능" Nothing
-        ["🎤 다중 음성 인식", "⚡ 실시간 처리", "🔧 확장 가능", "🔒 타입 안전성"]
-        [] [] Nothing)
-      [] 90
-  , MkSlide 5 SingleColumn
-      (MkSlideContent "시스템 아키텍처" Nothing [] [] [] Nothing)
-      [] 120
-  , MkSlide 6 ThreeColumn
-      (MkSlideContent "기술 스택" Nothing [] [] [] Nothing)
-      [] 90
-  , formalSpecSlide
-  , moduleStructureSlide
-  , MkSlide 9 SingleColumn
-      (MkSlideContent "핵심 타입 정의" Nothing [] [] [] Nothing)
-      [] 120
-  , MkSlide 10 SingleColumn
-      (MkSlideContent "음성 인식 Fallback 체인" Nothing [] [] [] Nothing)
-      [] 120
-  , MkSlide 11 FourQuadrant
-      (MkSlideContent "검증된 속성들" Nothing [] [] [] Nothing)
-      [] 120
-  , MkSlide 12 TwoColumn
-      (MkSlideContent "명세 → 구현 매핑" Nothing [] [] [] Nothing)
-      [] 90
-  , MkSlide 13 SingleColumn
-      (MkSlideContent "RESTful API" Nothing [] [] [] Nothing)
-      [] 120
-  , MkSlide 14 FullScreenDemo
-      (MkSlideContent "🎬 라이브 데모" Nothing [] [] [] Nothing)
-      [] 300
-  , MkSlide 15 SingleColumn
-      (MkSlideContent "성능 지표" Nothing [] [] [] Nothing)
-      [] 90
-  , MkSlide 16 ThreeColumn
-      (MkSlideContent "확장 시나리오" Nothing [] [] [] Nothing)
-      [] 90
-  , MkSlide 17 SingleColumn
-      (MkSlideContent "로드맵" Nothing [] [] [] Nothing)
-      [] 90
-  , MkSlide 18 TitleSlide
-      (MkSlideContent "Q & A" (Just "질문이 있으신가요?") [] [] [] Nothing)
-      [] 60
+  , featuresSlide
+  , architectureSlide
+  , techStackSlide
+  , apiSlide
+  , demoLiveSlide
+  , metricsSlide
+  , extensibilitySlide
   ]
   [ -- Backup slides
     MkSlide 19 SingleColumn
@@ -534,53 +563,57 @@ Key Features:
 -------------
 
 1. Type Safety
-   - Slide count verified at compile time (Vect 18 Slide)
+   - Slide count verified at compile time (Vect 10 Slide)
    - Slide numbers must be sequential
    - Time budgets enforced
 
 2. Design Consistency
+   - Visual-focused: Minimal text, maximum visuals
    - ColorPalette type ensures consistent colors
    - Typography type ensures consistent fonts
-   - Layout types prevent inconsistent designs
 
 3. Content Structure
-   - Each slide has defined layout
-   - Content types (text, code, diagrams) are typed
-   - Speaker notes attached to each slide
+   - Story-driven narrative flow
+   - Each slide emphasizes motivation, impact, purpose
+   - Visual content (images, diagrams) prioritized over text
+   - Speaker notes guide storytelling
 
 4. Validation
    - Total time calculation
    - Slide number validation
    - Layout type counting
-   - Code block counting
 
 Properties Verified:
 --------------------
 
-✓ Presentation has exactly 18 main slides
-✓ Slide numbers are sequential (1..18)
-✓ Total time ≤ 20 minutes (1200 seconds)
-✓ Each slide ≤ 5 minutes (300 seconds)
-✓ Color palette is consistent
-✓ Typography is defined
+✓ Presentation has exactly 10 main slides
+✓ Slide numbers are sequential (1..10)
+✓ Total time ≤ 10 minutes (600 seconds)
+✓ Each slide ≤ 2 minutes (120 seconds)
+✓ Visual-heavy design (minimal text)
+✓ Story-driven narrative
 
 Target Audience:
 ----------------
 
 - Primary: Teacher (Developer background)
-- Secondary: Students
-- Context: High school student presenting their project
+- Context: High school student presenting their passion project
+- Approach: Storytelling over technical details
 
-Presentation Flow:
-------------------
+Presentation Flow (Story Arc):
+-------------------------------
 
-1. Introduction (Slides 1-3): Problem and solution
-2. Technical Overview (Slides 4-6): Architecture and stack
-3. Formal Specification (Slides 7-12): Idris2 type system
-4. Demo & Results (Slides 13-15): Live demo and metrics
-5. Future Work (Slides 16-17): Roadmap
-6. Q&A (Slide 18): Questions
+1. Opening (Slide 1): Title - "말 한마디로 움직이는 세상"
+2. Problem (Slide 2): My daily struggle - personal story
+3. Idea (Slide 3): "What if?" - the big question
+4. Solution (Slide 4): SoundToAct - what I built
+5. How (Slide 5): 3 simple steps - visual explanation
+6. Demo (Slide 6): See it in action - live video
+7. Impact (Slide 7): What it gave me - before/after
+8. For Others (Slide 8): Who else can benefit - social value
+9. Vision (Slide 9): My dream - inspiring future
+10. Closing (Slide 10): Thank you & questions
 
-This ensures a logical, well-structured presentation that can be
-verified for completeness and consistency at compile time.
+This ensures an emotionally engaging, visually compelling presentation
+that inspires the audience rather than overwhelming them with tech details.
 -}
