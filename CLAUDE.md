@@ -10,6 +10,9 @@ SoundToAct is a Korean voice-triggered automation app that executes predefined a
 - Backend: Python 3.13+, FastAPI, SpeechRecognition, OpenAI Whisper
 - Frontend: React 19, Vite
 - Package Manager: `uv` for Python, `npm` for frontend
+- Optional: Idris2 for formal specifications (presentations only)
+
+**Important:** Python dependencies managed via `uv`. To add dependencies: `uv add <package>`. Frontend dependencies via `npm install <package>`.
 
 ## Development Commands
 
@@ -18,6 +21,9 @@ SoundToAct is a Korean voice-triggered automation app that executes predefined a
 ```bash
 # Install dependencies
 uv sync
+
+# Add new dependency
+uv add <package-name>
 
 # Run API server (development with auto-reload)
 uv run python main.py server --reload
@@ -36,6 +42,9 @@ uv run pytest --cov=app --cov-report=html
 
 # Run specific test file
 uv run pytest tests/test_api.py
+
+# Run specific test by name
+uv run pytest -k test_name
 
 # Test microphone setup
 uv run python test_microphone.py
@@ -155,91 +164,47 @@ curl -X POST http://localhost:8000/keywords \
 - **Sensitivity**: Energy threshold set to 50 (very low for quiet environments)
 - **Flow**: `listen_once()` → Whisper → (if fails) → Google → (if fails) → English fallback
 
-## Development Workflow & Git Commits
+## Presentation Generation (Optional)
 
-When implementing new features or fixes, commit at each major step to maintain clear history:
+The `presentations/` directory contains a formal specification workflow using Idris2 for generating PowerPoint presentations. This is a separate subsystem that demonstrates formal verification principles.
 
-### Recommended Commit Points
-
-1. **After adding a new action type:**
-   ```bash
-   git add app/actions.py
-   git commit -m "Add [action_name] action handler"
-   ```
-
-2. **After adding/modifying API endpoints:**
-   ```bash
-   git add app/api.py app/models.py
-   git commit -m "Add/Update [endpoint_name] endpoint"
-   ```
-
-3. **After adding tests:**
-   ```bash
-   git add tests/test_*.py
-   git commit -m "Add tests for [feature_name]"
-   ```
-
-4. **After frontend changes:**
-   ```bash
-   git add frontend/src/
-   git commit -m "Update UI: [description]"
-   ```
-
-5. **After documentation updates:**
-   ```bash
-   git add README.md CLAUDE.md
-   git commit -m "Update documentation for [feature]"
-   ```
-
-### Example Feature Development Flow
-
-Adding a new "notification" action:
+**Complete workflow:**
 
 ```bash
-# Step 1: Add action handler
-# Edit app/actions.py
-git add app/actions.py
-git commit -m "Add notification action handler"
+cd presentations
 
-# Step 2: Add tests
-# Edit tests/test_actions.py
-uv run pytest tests/test_actions.py  # Verify tests pass
-git add tests/test_actions.py
-git commit -m "Add tests for notification action"
+# 1. Validate Idris2 specifications (type-safe)
+idris2 --check Presentation.idr
+idris2 --check ImageSpec.idr
 
-# Step 3: Update documentation
-# Edit README.md
-git add README.md
-git commit -m "Document notification action usage"
+# 2. Generate JSON from specs
+python3 slides_from_idris.py
+
+# 3. Generate images
+python3 generate_images_from_spec.py
+
+# 4. Create PowerPoint
+python3 create_pptx_with_images.py
+
+# 5. Validate output
+python3 validate_ppt.py
 ```
 
-### Commit Message Guidelines
+**Note:** This workflow generates a type-safe, validated PowerPoint presentation. Idris2 specifications ensure correctness at compile-time. Output is `output/SoundToAct_Presentation_WithImages.pptx`. See `presentations/README.md` for detailed design principles and customization options.
 
-- Use imperative mood: "Add feature" not "Added feature"
-- Be specific: "Fix Whisper Korean language detection" not "Fix bug"
-- Reference issue numbers if applicable: "Fix #123: Port conflict on Windows"
-- For Korean messages, use Korean consistently or English consistently
-
-### Before Committing
-
-```bash
-# Run tests
-uv run pytest
-
-# Check for linting issues (frontend)
-cd frontend && npm run lint
-
-# Verify the app still runs
-uv run python main.py server --reload
-```
+**Known issues:** The generated .pptx files have compatibility issues with Apple Keynote due to python-pptx limitations. See `presentations/KEYNOTE_COMPATIBILITY_ISSUES.md` for details. PowerPoint and LibreOffice Impress work correctly.
 
 ## Testing Notes
 
 - Coverage target: 81% (current)
 - Test files in `tests/` directory
 - `conftest.py` contains shared fixtures
-- Use `pytest.ini` for configuration
 - Mock microphone in tests to avoid hardware dependency
+- Key test files:
+  - `test_api.py` - API endpoint tests
+  - `test_voice_listener.py` - Voice recognition tests
+  - `test_actions.py` - Action handler tests
+  - `test_models.py` - Pydantic model validation tests
 
 ## Common Issues
 
