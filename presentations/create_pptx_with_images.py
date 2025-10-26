@@ -29,20 +29,38 @@ def create_title_slide(prs, slide_data, images_dir):
     slide_layout = prs.slide_layouts[6]  # Blank
     slide = prs.slides.add_slide(slide_layout)
 
-    # Map visual descriptions to image files (same as create_visual_slide)
+    # Map visual descriptions to image files
     image_map = {
-        # Slide 1: Title
-        '음성 웨이브폼 애니메이션': 'wave_animation.png',
-        '마이크 아이콘 (큼직하게)': 'mic_icon_large.png',
-        # Slide 3: Idea
-        '큰 물음표 아이콘': 'question_mark.png',
+        '음성 웨이브폼 애니메이션': 'waveform_animation.png',
+        '마이크 아이콘 (큼직하게)': 'microphone_large.png',
+        '만화 스타일 일러스트: 침대에서 일어나는 학생': 'student_waking_up.png',
+        '복잡한 과정 플로우: 폰 찾기 → 잠금 해제 → 연락처 앱 → 검색 → 터치': 'complex_process_flow.png',
+        '시계 아이콘: \'2분 소요\'': 'clock_two_minutes.png',
+        '큰 물음표 아이콘': 'question_mark_large.png',
         '말풍선 안에 \'엄마\'': 'speech_bubble_mom.png',
-        '빛나는 효과 (반짝이는 전구)': 'light_bulb.png',
-        # Slide 10: Thank You
-        'QR 코드 (GitHub 링크)': 'qr_code.png',
-        'QR 코드 (GitHub)': 'qr_code.png',
-        'SoundToAct 로고 (작게)': 'final_logo.png',
-        'SoundToAct 로고': 'final_logo.png',
+        '빛나는 효과 (반짝이는 전구)': 'light_bulb_sparkle.png',
+        '프로젝트 로고 (크게)': 'soundtoact_logo_large.png',
+        '10초 데모 영상: \'엄마\' → 전화 걸림': 'demo_video_placeholder.png',
+        'Before/After 비교 이미지': 'before_after_comparison.png',
+        '1단계: 듣기 - 마이크 아이콘 + 음성 웨이브': 'step1_listen.png',
+        '2단계: 이해하기 - AI 뇌 + 키워드 매칭': 'step2_understand.png',
+        '3단계: 실행하기 - 액션 아이콘 (전화, 음악, 조명)': 'step3_act.png',
+        '화살표로 연결된 3단계 플로우': 'three_step_flow_arrows.png',
+        '실제 사용 데모 영상 (30초)': 'live_demo_video.png',
+        '데모 스크린샷 (백업)': 'demo_screenshot_backup.png',
+        'Before: 복잡한 과정 (2분)': 'before_2_minutes.png',
+        'After: 말 한마디 (2초)': 'after_2_seconds.png',
+        '숫자 강조: 60배 빨라짐': 'sixty_times_faster.png',
+        '하루 30분 절약': 'thirty_minutes_saved.png',
+        '시나리오 1: 어르신 - 큰 글씨 필요없이': 'elderly_scenario.png',
+        '시나리오 2: 바쁜 직장인 - 운전 중에도': 'worker_scenario.png',
+        '시나리오 3: 장애인 - 손 사용 불편해도': 'disability_scenario.png',
+        '모두를 위한 기술': 'inclusive_technology.png',
+        '지구 아이콘 + 연결된 사람들': 'connected_world.png',
+        '밝은 미래 이미지': 'bright_future.png',
+        '확장 가능성: 스마트홈, 자동차, 가전제품...': 'expansion_vision.png',
+        'QR 코드 (GitHub)': 'qr_code_github.png',
+        'SoundToAct 로고': 'soundtoact_logo_final.png',
     }
 
     # Title
@@ -210,56 +228,38 @@ def create_visual_slide(prs, slide_data, images_dir):
         p.alignment = PP_ALIGN.CENTER
         current_top += Inches(0.6)
 
-    # Map visual descriptions to image files
+    # Map visual descriptions to image files (same as create_title_slide)
     image_map = {
-        # Slide 1: Title
-        '음성 웨이브폼 애니메이션': 'wave_animation.png',
-        '마이크 아이콘 (큼직하게)': 'mic_icon_large.png',
-        # Slide 2: Problem
-        '아침 일러스트': 'morning_illustration.png',
-        '복잡한 과정 다이어그램 (5단계)': 'complex_process.png',
-        '만화 스타일 일러스트: 침대에서 일어나는 학생': 'morning_illustration.png',
-        '복잡한 과정 플로우: 폰 찾기 → 잠금 해제 → 연락처 앱 → 검색 → 터치': 'complex_process.png',
-        "시계 아이콘: '2분 소요'": 'complex_process.png',
-        # Slide 3: Idea
-        '큰 물음표 아이콘': 'question_mark.png',
+        '음성 웨이브폼 애니메이션': 'waveform_animation.png',
+        '마이크 아이콘 (큼직하게)': 'microphone_large.png',
+        '만화 스타일 일러스트: 침대에서 일어나는 학생': 'student_waking_up.png',
+        '복잡한 과정 플로우: 폰 찾기 → 잠금 해제 → 연락처 앱 → 검색 → 터치': 'complex_process_flow.png',
+        '시계 아이콘: \'2분 소요\'': 'clock_two_minutes.png',
+        '큰 물음표 아이콘': 'question_mark_large.png',
         '말풍선 안에 \'엄마\'': 'speech_bubble_mom.png',
-        '빛나는 효과 (반짝이는 전구)': 'light_bulb.png',
-        # Slide 4: Solution
-        'SoundToAct 로고': 'logo.png',
-        '프로젝트 로고 (크게)': 'logo.png',
-        '데모 영상 스크린샷': 'demo_placeholder.png',
-        "10초 데모 영상: '엄마' → 전화 걸림": 'demo_placeholder.png',
-        'Before/After 비교 이미지': 'before_after.png',
-        # Slide 5: How
-        '1단계: 듣기 - 마이크 아이콘 + 음성 웨이브': 'three_steps.png',
-        '2단계: 이해하기 - AI 뇌 + 키워드 매칭': 'three_steps.png',
-        '3단계: 실행하기 - 액션 아이콘 (전화, 음악, 조명)': 'three_steps.png',
-        '화살표로 연결된 3단계 플로우': 'three_steps.png',
-        # Slide 6: Demo
-        '라이브 데모 화면': 'live_demo.png',
-        '실제 사용 데모 영상 (30초)': 'live_demo.png',
-        '데모 스크린샷 (백업)': 'demo_placeholder.png',
-        # Slide 7: Impact
-        'Before: 복잡한 과정 (2분)': 'before_after.png',
-        'After: 말 한마디 (2초)': 'before_after.png',
-        '숫자 강조: 60배 빨라짐': 'before_after.png',
-        '하루 30분 절약': 'before_after.png',
-        # Slide 8: For Others
-        '시나리오 1: 어르신 - 큰 글씨 필요없이': 'inclusive_tech.png',
-        '시나리오 2: 바쁜 직장인 - 운전 중에도': 'inclusive_tech.png',
-        '시나리오 3: 장애인 - 손 사용 불편해도': 'inclusive_tech.png',
-        '모두를 위한 기술': 'inclusive_tech.png',
-        # Slide 9: Dream
-        '지구 아이콘 + 연결된 사람들': 'world_connections.png',
-        '밝은 미래 일러스트': 'bright_future.png',
+        '빛나는 효과 (반짝이는 전구)': 'light_bulb_sparkle.png',
+        '프로젝트 로고 (크게)': 'soundtoact_logo_large.png',
+        '10초 데모 영상: \'엄마\' → 전화 걸림': 'demo_video_placeholder.png',
+        'Before/After 비교 이미지': 'before_after_comparison.png',
+        '1단계: 듣기 - 마이크 아이콘 + 음성 웨이브': 'step1_listen.png',
+        '2단계: 이해하기 - AI 뇌 + 키워드 매칭': 'step2_understand.png',
+        '3단계: 실행하기 - 액션 아이콘 (전화, 음악, 조명)': 'step3_act.png',
+        '화살표로 연결된 3단계 플로우': 'three_step_flow_arrows.png',
+        '실제 사용 데모 영상 (30초)': 'live_demo_video.png',
+        '데모 스크린샷 (백업)': 'demo_screenshot_backup.png',
+        'Before: 복잡한 과정 (2분)': 'before_2_minutes.png',
+        'After: 말 한마디 (2초)': 'after_2_seconds.png',
+        '숫자 강조: 60배 빨라짐': 'sixty_times_faster.png',
+        '하루 30분 절약': 'thirty_minutes_saved.png',
+        '시나리오 1: 어르신 - 큰 글씨 필요없이': 'elderly_scenario.png',
+        '시나리오 2: 바쁜 직장인 - 운전 중에도': 'worker_scenario.png',
+        '시나리오 3: 장애인 - 손 사용 불편해도': 'disability_scenario.png',
+        '모두를 위한 기술': 'inclusive_technology.png',
+        '지구 아이콘 + 연결된 사람들': 'connected_world.png',
         '밝은 미래 이미지': 'bright_future.png',
-        '확장 가능성: 스마트홈, 자동차, 가전제품...': 'world_connections.png',
-        # Slide 10: Thank You
-        'QR 코드 (GitHub 링크)': 'qr_code.png',
-        'QR 코드 (GitHub)': 'qr_code.png',
-        'SoundToAct 로고 (작게)': 'final_logo.png',
-        'SoundToAct 로고': 'final_logo.png',
+        '확장 가능성: 스마트홈, 자동차, 가전제품...': 'expansion_vision.png',
+        'QR 코드 (GitHub)': 'qr_code_github.png',
+        'SoundToAct 로고': 'soundtoact_logo_final.png',
     }
 
     visuals = slide_data.get('visuals', [])
