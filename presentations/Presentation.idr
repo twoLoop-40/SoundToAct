@@ -246,10 +246,10 @@ titleSlide = MkSlide
     , "2025년 10월"
     ]
     []
-    [ MkVisual ImageContent "음성 웨이브폼 애니메이션" "wave-animation"
-    , MkVisual ImageContent "마이크 아이콘 (큼직하게)" "mic-icon-large"
+    [ MkVisual TextContent "🎤 음성 인식 기반 자동화 시스템" "intro-concept"
+    , MkVisual TextContent "Python + SpeechRecognition + 자동화 라이브러리" "tech-stack"
     ]
-    (Just "간단한 자기소개. 프로젝트 이름의 의미: Sound → Act (소리가 행동으로)"))
+    (Just "발표자 가이드: 인사 후 프로젝트명 강조. 'Sound(소리)'가 'Act(행동)'으로 바로 변환되는 개념 설명. 음성만으로 기기를 제어하는 시스템임을 명확히 전달."))
   [MkAnimation Fade 0.5 0.0]
   45
 
@@ -267,11 +267,15 @@ problemSlide = MkSlide
     , "\"엄마한테 전화해야 하는데...\""
     ]
     []
-    [ MkVisual ImageContent "만화 스타일 일러스트: 침대에서 일어나는 학생" "morning-illustration"
-    , MkVisual DiagramContent "복잡한 과정 플로우: 폰 찾기 → 잠금 해제 → 연락처 앱 → 검색 → 터치" "complicated-flow"
-    , MkVisual ImageContent "시계 아이콘: '2분 소요'" "time-wasted"
+    [ MkVisual TextContent "[문제 상황]" "problem-header"
+    , MkVisual TextContent "1. 침대에서 폰 찾기 (20초)" "step-1"
+    , MkVisual TextContent "2. 잠금 해제 (10초)" "step-2"
+    , MkVisual TextContent "3. 연락처 앱 열기 (15초)" "step-3"
+    , MkVisual TextContent "4. '엄마' 검색 (20초)" "step-4"
+    , MkVisual TextContent "5. 통화 버튼 터치 (5초)" "step-5"
+    , MkVisual TextContent "⏱ 총 소요 시간: ~2분 + 귀찮음" "total-time"
     ]
-    (Just "개인적 경험으로 시작. 청중이 공감할 수 있는 일상적 상황. 시각적으로 복잡한 과정 강조."))
+    (Just "발표자 가이드: 개인 경험 공유. '아침에 누워있는데 전화해야 할 때 얼마나 귀찮은지 아시나요?' 질문으로 시작. 각 단계를 천천히 설명하며 복잡함 강조. UI 조작의 불편함과 시간 낭비 언급."))
   [MkAnimation Appear 0.3 0.1]
   60
 
@@ -288,11 +292,11 @@ demoSlide = MkSlide
     , "자동으로 전화가 걸린다면?"
     ]
     []
-    [ MkVisual ImageContent "큰 물음표 아이콘" "question-mark-large"
-    , MkVisual ImageContent "말풍선 안에 '엄마'" "speech-bubble"
-    , MkVisual ImageContent "빛나는 효과 (반짝이는 전구)" "light-bulb-idea"
+    [ MkVisual TextContent "💡 핵심 아이디어" "core-idea"
+    , MkVisual TextContent "음성 명령 → 즉시 실행" "voice-to-action"
+    , MkVisual TextContent "UI 조작 불필요" "no-ui"
     ]
-    (Just "질문으로 청중의 상상력 자극. 간단명료하게. 아이디어의 핵심을 제시."))
+    (Just "발표자 가이드: 잠시 멈추고 청중과 눈 맞춤. '만약에 말입니다...' 하며 기대감 조성. 해결책을 직접 말하지 말고 질문 형태로 상상하게 만들기. '이게 가능하다면 얼마나 편할까요?'"))
   [MkAnimation ZoomIn 0.5 0.0]
   45
 
@@ -308,11 +312,16 @@ featuresSlide = MkSlide
     [ "말만 하면 작동하는 시스템"
     ]
     []
-    [ MkVisual ImageContent "프로젝트 로고 (크게)" "soundtoact-logo"
-    , MkVisual VideoContent "10초 데모 영상: '엄마' → 전화 걸림" "quick-demo-video"
-    , MkVisual ImageContent "Before/After 비교 이미지" "before-after"
+    [ MkVisual TextContent "[기술 스택]" "tech-stack-header"
+    , MkVisual TextContent "• Python 3.10+ 기반" "python-version"
+    , MkVisual TextContent "• SpeechRecognition 라이브러리 (Google Speech API)" "speech-lib"
+    , MkVisual TextContent "• PyAutoGUI (UI 자동화)" "automation-lib"
+    , MkVisual TextContent "• Threading (백그라운드 실행)" "threading"
+    , MkVisual TextContent "" "spacer"
+    , MkVisual TextContent "[동작 방식]" "how-it-works-header"
+    , MkVisual TextContent "'엄마' 음성 → 연락처 검색 → 통화 실행" "demo-flow"
     ]
-    (Just "짧은 데모 영상으로 임팩트. 복잡한 설명 없이 바로 작동하는 모습 보여주기."))
+    (Just "발표자 가이드: '그래서 직접 만들었습니다!' 힘있게 말하기. 기술 스택 설명 시 '고등학생도 배울 수 있는 Python으로 만들었다' 강조. SpeechRecognition은 Google API 사용해서 정확도 높음을 언급. 실제 동작 예시를 간단히 설명."))
   [MkAnimation Appear 0.3 0.0]
   60
 
@@ -328,12 +337,22 @@ architectureSlide = MkSlide
     [ "듣기 → 이해하기 → 실행하기"
     ]
     []
-    [ MkVisual DiagramContent "1단계: 듣기 - 마이크 아이콘 + 음성 웨이브" "step1-listen"
-    , MkVisual DiagramContent "2단계: 이해하기 - AI 뇌 + 키워드 매칭" "step2-understand"
-    , MkVisual DiagramContent "3단계: 실행하기 - 액션 아이콘 (전화, 음악, 조명)" "step3-act"
-    , MkVisual DiagramContent "화살표로 연결된 3단계 플로우" "flow-arrows"
+    [ MkVisual TextContent "[1단계: 듣기 🎤]" "step-1-header"
+    , MkVisual TextContent "마이크로 음성 캡처" "audio-capture"
+    , MkVisual TextContent "sr.Microphone()" "code-mic"
+    , MkVisual TextContent "실시간 오디오 스트림" "audio-stream"
+    , MkVisual TextContent "" "spacer-1"
+    , MkVisual TextContent "[2단계: 이해 🧠]" "step-2-header"
+    , MkVisual TextContent "Google Speech API" "google-api"
+    , MkVisual TextContent "음성 → 텍스트 변환" "stt"
+    , MkVisual TextContent "키워드 매칭 알고리즘" "keyword-matching"
+    , MkVisual TextContent "" "spacer-2"
+    , MkVisual TextContent "[3단계: 실행 ⚡]" "step-3-header"
+    , MkVisual TextContent "명령어 파싱" "command-parsing"
+    , MkVisual TextContent "해당 함수 호출" "function-call"
+    , MkVisual TextContent "자동화 스크립트 실행" "automation"
     ]
-    (Just "3단계만 강조. 기술적 용어 배제. 아이콘과 그림으로만 표현."))
+    (Just "발표자 가이드: 기술적 설명 시작. 1) 마이크 입력은 SpeechRecognition 라이브러리가 처리. 2) Google API가 음성을 텍스트로 변환 (네트워크 필요). 3) 키워드를 인식하면 미리 정의된 함수 실행. '코드는 200줄 정도로 간단합니다' 언급."))
   [MkAnimation Appear 0.3 0.2]
   75
 
@@ -349,10 +368,15 @@ techStackSlide = MkSlide
     [ "🎬 라이브 데모"
     ]
     []
-    [ MkVisual VideoContent "실제 사용 데모 영상 (30초)" "live-demo-full"
-    , MkVisual ImageContent "데모 스크린샷 (백업)" "demo-screenshot"
+    [ MkVisual TextContent "[데모 시나리오]" "demo-scenarios"
+    , MkVisual TextContent "1️⃣ '엄마' → 연락처에서 찾아 전화 걸기" "demo-1"
+    , MkVisual TextContent "2️⃣ '음악 틀어줘' → 음악 앱 실행" "demo-2"
+    , MkVisual TextContent "3️⃣ '불 꺼줘' → 스마트 조명 제어" "demo-3"
+    , MkVisual TextContent "" "spacer"
+    , MkVisual TextContent "💻 실행 명령: python main.py" "command"
+    , MkVisual TextContent "🎤 음성 인식 대기 중..." "listening"
     ]
-    (Just "실제 작동하는 모습. 영상: '엄마' 말하기 → 전화 걸림, '음악' → 재생됨, '불꺼' → 조명 OFF"))
+    (Just "발표자 가이드: 실제 데모 실행. 프로그램 실행 후 '엄마'라고 말하기. 반응 속도 강조 (~2초). 데모가 안 되면 '사전에 녹화한 영상'이라고 말하고 시나리오 설명. 각 명령어가 어떻게 처리되는지 간단히 설명. 오류 처리도 구현되어 있음을 언급."))
   [MkAnimation Appear 0.3 0.0]
   90
 
@@ -369,12 +393,22 @@ apiSlide = MkSlide
     , "하루 30분 절약"
     ]
     []
-    [ MkVisual DiagramContent "Before: 복잡한 과정 (2분)" "before-complex"
-    , MkVisual DiagramContent "After: 말 한마디 (2초)" "after-simple"
-    , MkVisual ImageContent "숫자 강조: 60배 빨라짐" "speed-comparison"
-    , MkVisual ImageContent "하루 30분 절약" "time-saved"
+    [ MkVisual TextContent "[Before: 전통적 방식]" "before-header"
+    , MkVisual TextContent "• 기기 조작 필요" "before-1"
+    , MkVisual TextContent "• UI 네비게이션 필수" "before-2"
+    , MkVisual TextContent "• 5단계 프로세스" "before-3"
+    , MkVisual TextContent "• 평균 소요: 2분" "before-time"
+    , MkVisual TextContent "" "spacer"
+    , MkVisual TextContent "[After: SoundToAct]" "after-header"
+    , MkVisual TextContent "• 음성만으로 완료" "after-1"
+    , MkVisual TextContent "• UI 터치 불필요" "after-2"
+    , MkVisual TextContent "• 1단계 (말하기)" "after-3"
+    , MkVisual TextContent "• 평균 소요: 2초" "after-time"
+    , MkVisual TextContent "" "spacer-2"
+    , MkVisual TextContent "⚡ 속도 개선: 60배 ⚡" "improvement"
+    , MkVisual TextContent "💰 하루 약 30분 절약 (15회 사용 시)" "daily-savings"
     ]
-    (Just "Before/After 비교로 효과 시각화. 숫자로 임팩트 강조."))
+    (Just "발표자 가이드: 구체적 수치로 효과 입증. Before 설명 시 손동작으로 복잡함 강조. After 설명 시 '그냥 말만 하면 됩니다' 강조. 60배는 120초/2초 계산. 하루 15회 사용 가정 시 30분 절약 (15 × 118초 = 1770초 ≈ 30분)."))
   [MkAnimation Fade 0.5 0.2]
   60
 
@@ -391,12 +425,22 @@ demoLiveSlide = MkSlide
     , "누구나 쉽게"
     ]
     []
-    [ MkVisual ImageContent "시나리오 1: 어르신 - 큰 글씨 필요없이" "elderly-scenario"
-    , MkVisual ImageContent "시나리오 2: 바쁜 직장인 - 운전 중에도" "worker-scenario"
-    , MkVisual ImageContent "시나리오 3: 장애인 - 손 사용 불편해도" "disability-scenario"
-    , MkVisual DiagramContent "모두를 위한 기술" "inclusive-tech"
+    [ MkVisual TextContent "[어르신 👴]" "elderly-header"
+    , MkVisual TextContent "• 작은 글씨 안 보여도 OK" "elderly-1"
+    , MkVisual TextContent "• 복잡한 UI 몰라도 OK" "elderly-2"
+    , MkVisual TextContent "• 말만 하면 작동" "elderly-3"
+    , MkVisual TextContent "" "spacer-1"
+    , MkVisual TextContent "[바쁜 직장인 💼]" "worker-header"
+    , MkVisual TextContent "• 운전 중 안전하게" "worker-1"
+    , MkVisual TextContent "• 멀티태스킹 가능" "worker-2"
+    , MkVisual TextContent "• 손 쓸 필요 없음" "worker-3"
+    , MkVisual TextContent "" "spacer-2"
+    , MkVisual TextContent "[장애인 ♿]" "disability-header"
+    , MkVisual TextContent "• 시각 장애: 화면 안 봐도 OK" "disability-1"
+    , MkVisual TextContent "• 지체 장애: 터치 불필요" "disability-2"
+    , MkVisual TextContent "• 음성만으로 완전 제어" "disability-3"
     ]
-    (Just "사회적 가치 강조. 다양한 사람들이 혜택 받을 수 있음. 포용적 기술."))
+    (Just "발표자 가이드: 사회적 가치 강조. '기술은 누구에게나 평등해야 합니다' 시작. 각 그룹별 pain point 설명. 실제 사용자 피드백 있으면 언급. '접근성(Accessibility)'이 핵심 가치임을 강조. 유니버설 디자인 개념 간단히 소개."))
   [MkAnimation Appear 0.3 0.2]
   75
 
@@ -413,11 +457,19 @@ metricsSlide = MkSlide
     , "더 편리한 생활을"
     ]
     []
-    [ MkVisual ImageContent "지구 아이콘 + 연결된 사람들" "connected-world"
-    , MkVisual ImageContent "밝은 미래 이미지" "bright-future"
-    , MkVisual DiagramContent "확장 가능성: 스마트홈, 자동차, 가전제품..." "expansion-vision"
+    [ MkVisual TextContent "[향후 개선 계획]" "future-plan"
+    , MkVisual TextContent "• 다국어 지원 (영어, 중국어...)" "multilingual"
+    , MkVisual TextContent "• 오프라인 모드 (로컬 STT)" "offline-mode"
+    , MkVisual TextContent "• 더 많은 명령어 추가" "more-commands"
+    , MkVisual TextContent "• 커스터마이징 기능" "customization"
+    , MkVisual TextContent "" "spacer"
+    , MkVisual TextContent "[확장 가능성]" "scalability"
+    , MkVisual TextContent "🏠 스마트홈: IoT 기기 제어" "smarthome"
+    , MkVisual TextContent "🚗 자동차: 핸즈프리 운전" "car"
+    , MkVisual TextContent "🏥 의료: 환자 모니터링" "healthcare"
+    , MkVisual TextContent "🏭 산업: 작업장 안전" "industrial"
     ]
-    (Just "개인적 비전 제시. 기술의 사회적 가치. 청중에게 영감 주기."))
+    (Just "발표자 가이드: 미래 비전 제시. '이건 시작일 뿐입니다' 강조. 다국어 지원으로 글로벌화 가능. 오프라인 모드는 Vosk 같은 로컬 STT 라이브러리 사용 계획. IoT 연동 시 진정한 스마트홈 가능. 의료/산업 분야 적용 사례 간단히 설명. '여러분도 함께 만들어주세요' 참여 유도."))
   [MkAnimation ZoomIn 0.5 0.0]
   60
 
@@ -434,10 +486,18 @@ extensibilitySlide = MkSlide
     , "세상을 바꿀 수 있습니다"
     ]
     []
-    [ MkVisual ImageContent "QR 코드 (GitHub)" "qr-code-github"
-    , MkVisual ImageContent "SoundToAct 로고" "logo-final"
+    [ MkVisual TextContent "[프로젝트 정보]" "project-info"
+    , MkVisual TextContent "📂 GitHub: github.com/[username]/SoundToAct" "github"
+    , MkVisual TextContent "📧 Email: contact@example.com" "email"
+    , MkVisual TextContent "🐍 Python 3.10+ 필요" "requirements"
+    , MkVisual TextContent "" "spacer"
+    , MkVisual TextContent "[기술 스택 요약]" "tech-summary"
+    , MkVisual TextContent "SpeechRecognition • PyAutoGUI" "libs-1"
+    , MkVisual TextContent "Threading • Google Speech API" "libs-2"
+    , MkVisual TextContent "" "spacer-2"
+    , MkVisual TextContent "💬 Q&A 환영합니다!" "qa-welcome"
     ]
-    (Just "감사 인사. 영감을 주는 마무리 멘트. GitHub QR 코드 제공."))
+    (Just "발표자 가이드: '경청해주셔서 감사합니다!' 밝게 인사. GitHub 링크 공유하며 '코드가 궁금하신 분들은 자유롭게 보세요'. 오픈소스 프로젝트이며 contribution 환영. 질문 받을 준비. 예상 질문: 1) 정확도는? → 90% 이상 2) 비용은? → 무료 (Google API 일일 한도 내) 3) 오프라인? → 현재는 불가, 향후 추가 예정 4) 보안은? → 로컬 실행, 데이터 저장 안 함."))
   [MkAnimation Fade 0.5 0.0]
   45
 
