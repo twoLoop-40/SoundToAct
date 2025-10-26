@@ -242,7 +242,7 @@ titleSlide = MkSlide
   (MkSlideContent
     "SoundToAct"
     (Just "말 한마디로 움직이는 세상")
-    [ "고등학생 개발자 [이름]"
+    [ "고등학생 개발자"
     , "2025년 10월"
     ]
     []
@@ -324,8 +324,9 @@ architectureSlide = MkSlide
   ThreeColumn
   (MkSlideContent
     "어떻게 작동할까?"
-    Nothing
-    []
+    (Just "간단한 3단계")
+    [ "듣기 → 이해하기 → 실행하기"
+    ]
     []
     [ MkVisual DiagramContent "1단계: 듣기 - 마이크 아이콘 + 음성 웨이브" "step1-listen"
     , MkVisual DiagramContent "2단계: 이해하기 - AI 뇌 + 키워드 매칭" "step2-understand"
@@ -363,8 +364,10 @@ apiSlide = MkSlide
   TwoColumn
   (MkSlideContent
     "나에게 준 변화"
-    Nothing
-    []
+    (Just "60배 빨라졌습니다")
+    [ "2분 → 2초"
+    , "하루 30분 절약"
+    ]
     []
     [ MkVisual DiagramContent "Before: 복잡한 과정 (2분)" "before-complex"
     , MkVisual DiagramContent "After: 말 한마디 (2초)" "after-simple"
@@ -383,8 +386,10 @@ demoLiveSlide = MkSlide
   ThreeColumn
   (MkSlideContent
     "다른 사람들도 쓸 수 있어요"
-    Nothing
-    []
+    (Just "모두를 위한 기술")
+    [ "어르신, 직장인, 장애인"
+    , "누구나 쉽게"
+    ]
     []
     [ MkVisual ImageContent "시나리오 1: 어르신 - 큰 글씨 필요없이" "elderly-scenario"
     , MkVisual ImageContent "시나리오 2: 바쁜 직장인 - 운전 중에도" "worker-scenario"

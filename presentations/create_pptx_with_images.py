@@ -29,6 +29,22 @@ def create_title_slide(prs, slide_data, images_dir):
     slide_layout = prs.slide_layouts[6]  # Blank
     slide = prs.slides.add_slide(slide_layout)
 
+    # Map visual descriptions to image files (same as create_visual_slide)
+    image_map = {
+        # Slide 1: Title
+        '음성 웨이브폼 애니메이션': 'wave_animation.png',
+        '마이크 아이콘 (큼직하게)': 'mic_icon_large.png',
+        # Slide 3: Idea
+        '큰 물음표 아이콘': 'question_mark.png',
+        '말풍선 안에 \'엄마\'': 'speech_bubble_mom.png',
+        '빛나는 효과 (반짝이는 전구)': 'light_bulb.png',
+        # Slide 10: Thank You
+        'QR 코드 (GitHub 링크)': 'qr_code.png',
+        'QR 코드 (GitHub)': 'qr_code.png',
+        'SoundToAct 로고 (작게)': 'final_logo.png',
+        'SoundToAct 로고': 'final_logo.png',
+    }
+
     # Title
     left = Inches(1)
     top = Inches(2)
@@ -45,32 +61,103 @@ def create_title_slide(prs, slide_data, images_dir):
     p.alignment = PP_ALIGN.CENTER
 
     # Subtitle
+    current_top = Inches(3.5)
     if slide_data.get('subtitle'):
-        sub_box = slide.shapes.add_textbox(left, Inches(3.5), width, Inches(0.8))
+        sub_box = slide.shapes.add_textbox(left, current_top, width, Inches(0.8))
         tf = sub_box.text_frame
         p = tf.paragraphs[0]
         p.text = slide_data['subtitle']
         p.font.size = Pt(36)
         p.font.color.rgb = COLORS['text_secondary']
         p.alignment = PP_ALIGN.CENTER
+        current_top = Inches(4.5)
 
-    # Add waveform image if available
-    wave_img = images_dir / 'wave_animation.png'
-    if wave_img.exists():
-        slide.shapes.add_picture(
-            str(wave_img),
-            Inches(1.5), Inches(5),
-            width=Inches(7)
-        )
+    # Process visuals
+    visuals = slide_data.get('visuals', [])
+    num_visuals = len(visuals)
 
-    # Add mic icon
-    mic_img = images_dir / 'mic_icon_large.png'
-    if mic_img.exists():
-        slide.shapes.add_picture(
-            str(mic_img),
-            Inches(8), Inches(0.5),
-            height=Inches(1.5)
-        )
+    if num_visuals > 0:
+        if num_visuals == 1:
+            # Single visual centered
+            visual = visuals[0]
+            img_file = None
+            if visual in image_map:
+                img_path = images_dir / image_map[visual]
+                if img_path.exists():
+                    img_file = img_path
+
+            if img_file:
+                slide.shapes.add_picture(
+                    str(img_file),
+                    Inches(3), current_top,
+                    width=Inches(4)
+                )
+                img_bottom = current_top + Inches(3)
+                # Caption
+                caption_box = slide.shapes.add_textbox(Inches(1), img_bottom + Inches(0.1), width, Inches(0.4))
+                tf = caption_box.text_frame
+                p = tf.paragraphs[0]
+                p.text = visual
+                p.font.size = Pt(14)
+                p.font.color.rgb = COLORS['text_secondary']
+                p.alignment = PP_ALIGN.CENTER
+
+        elif num_visuals == 2:
+            # Two visuals side by side
+            for i, visual in enumerate(visuals):
+                img_file = None
+                if visual in image_map:
+                    img_path = images_dir / image_map[visual]
+                    if img_path.exists():
+                        img_file = img_path
+
+                box_left = Inches(1 + i * 4.5)
+                box_width = Inches(4)
+
+                if img_file:
+                    slide.shapes.add_picture(
+                        str(img_file),
+                        box_left, current_top,
+                        width=box_width
+                    )
+                    img_bottom = current_top + Inches(2.5)
+                    # Caption
+                    caption_box = slide.shapes.add_textbox(box_left, img_bottom + Inches(0.1), box_width, Inches(0.4))
+                    tf = caption_box.text_frame
+                    p = tf.paragraphs[0]
+                    p.text = visual
+                    p.font.size = Pt(12)
+                    p.font.color.rgb = COLORS['text_secondary']
+                    p.alignment = PP_ALIGN.CENTER
+
+        else:
+            # Three visuals in a row
+            for i, visual in enumerate(visuals[:3]):
+                img_file = None
+                if visual in image_map:
+                    img_path = images_dir / image_map[visual]
+                    if img_path.exists():
+                        img_file = img_path
+
+                box_left = Inches(0.75 + i * 3.25)
+                box_width = Inches(3)
+
+                if img_file:
+                    slide.shapes.add_picture(
+                        str(img_file),
+                        box_left, current_top,
+                        width=box_width
+                    )
+                    img_bottom = current_top + Inches(2)
+                    # Caption
+                    caption_box = slide.shapes.add_textbox(box_left, img_bottom + Inches(0.05), box_width, Inches(0.4))
+                    tf = caption_box.text_frame
+                    tf.word_wrap = True
+                    p = tf.paragraphs[0]
+                    p.text = visual
+                    p.font.size = Pt(11)
+                    p.font.color.rgb = COLORS['text_secondary']
+                    p.alignment = PP_ALIGN.CENTER
 
     # Content at bottom
     content = slide_data.get('content', [])
@@ -166,85 +253,183 @@ def create_visual_slide(prs, slide_data, images_dir):
         # Slide 9: Dream
         '지구 아이콘 + 연결된 사람들': 'world_connections.png',
         '밝은 미래 일러스트': 'bright_future.png',
+        '밝은 미래 이미지': 'bright_future.png',
+        '확장 가능성: 스마트홈, 자동차, 가전제품...': 'world_connections.png',
         # Slide 10: Thank You
         'QR 코드 (GitHub 링크)': 'qr_code.png',
+        'QR 코드 (GitHub)': 'qr_code.png',
         'SoundToAct 로고 (작게)': 'final_logo.png',
+        'SoundToAct 로고': 'final_logo.png',
     }
 
     visuals = slide_data.get('visuals', [])
 
-    # Find the primary image to display
-    primary_image = None
-    for visual in visuals:
+    # Process all visuals
+    num_visuals = len(visuals)
+
+    if num_visuals == 0:
+        return slide
+
+    # Determine layout based on number of visuals
+    if num_visuals == 1:
+        # Single large visual (centered)
+        visual = visuals[0]
+        img_file = None
         if visual in image_map:
-            img_file = images_dir / image_map[visual]
-            if img_file.exists():
-                primary_image = img_file
-                break
+            img_path = images_dir / image_map[visual]
+            if img_path.exists():
+                img_file = img_path
 
-    # If we have an image, display it large
-    if primary_image:
-        # Center large image
-        img_width = Inches(7)
-        img_height = Inches(4.5)
-        img_left = Inches(1.5)
-        img_top = current_top
+        if img_file:
+            # Display image
+            img_width = Inches(7)
+            img_left = Inches(1.5)
+            img_top = current_top
 
-        slide.shapes.add_picture(
-            str(primary_image),
-            img_left, img_top,
-            width=img_width
-        )
-        current_top += img_height + Inches(0.3)
-    else:
-        # Create placeholder boxes for visuals
-        num_visuals = len(visuals)
-        if num_visuals > 0:
-            if num_visuals <= 2:
-                # Large boxes side by side
-                box_width = Inches(4) if num_visuals == 2 else Inches(7)
-                for i, visual in enumerate(visuals[:2]):
-                    box_left = Inches(1) if num_visuals == 1 else Inches(0.5 + i * 4.5)
-                    shape = slide.shapes.add_shape(
-                        1,  # Rectangle
-                        box_left, current_top, box_width, Inches(3.5)
-                    )
-                    shape.fill.solid()
-                    shape.fill.fore_color.rgb = RGBColor(240, 245, 255)
-                    shape.line.color.rgb = COLORS['primary']
-                    shape.line.width = Pt(3)
+            slide.shapes.add_picture(
+                str(img_file),
+                img_left, img_top,
+                width=img_width
+            )
+            current_top += Inches(4.5) + Inches(0.1)
 
-                    tf = shape.text_frame
-                    tf.word_wrap = True
-                    p = tf.paragraphs[0]
-                    p.text = visual
-                    p.font.size = Pt(18)
-                    p.font.color.rgb = COLORS['text_secondary']
-                    p.alignment = PP_ALIGN.CENTER
+            # Add caption below image
+            caption_box = slide.shapes.add_textbox(
+                img_left, current_top, img_width, Inches(0.5)
+            )
+            tf = caption_box.text_frame
+            tf.word_wrap = True
+            p = tf.paragraphs[0]
+            p.text = visual
+            p.font.size = Pt(16)
+            p.font.color.rgb = COLORS['text_secondary']
+            p.alignment = PP_ALIGN.CENTER
+        else:
+            # Placeholder box
+            box_width = Inches(7)
+            box_left = Inches(1.5)
+            shape = slide.shapes.add_shape(
+                1,  # Rectangle
+                box_left, current_top, box_width, Inches(3.5)
+            )
+            shape.fill.solid()
+            shape.fill.fore_color.rgb = RGBColor(240, 245, 255)
+            shape.line.color.rgb = COLORS['primary']
+            shape.line.width = Pt(3)
+
+            tf = shape.text_frame
+            tf.word_wrap = True
+            p = tf.paragraphs[0]
+            p.text = visual
+            p.font.size = Pt(18)
+            p.font.color.rgb = COLORS['text_secondary']
+            p.alignment = PP_ALIGN.CENTER
+
+    elif num_visuals == 2:
+        # Two visuals side by side
+        for i, visual in enumerate(visuals):
+            img_file = None
+            if visual in image_map:
+                img_path = images_dir / image_map[visual]
+                if img_path.exists():
+                    img_file = img_path
+
+            box_left = Inches(0.5 + i * 5)
+            box_width = Inches(4.5)
+
+            if img_file:
+                # Display image
+                slide.shapes.add_picture(
+                    str(img_file),
+                    box_left, current_top,
+                    width=box_width
+                )
+                img_bottom = current_top + Inches(3)
+
+                # Add caption below image
+                caption_box = slide.shapes.add_textbox(
+                    box_left, img_bottom + Inches(0.1), box_width, Inches(0.5)
+                )
+                tf = caption_box.text_frame
+                tf.word_wrap = True
+                p = tf.paragraphs[0]
+                p.text = visual
+                p.font.size = Pt(14)
+                p.font.color.rgb = COLORS['text_secondary']
+                p.alignment = PP_ALIGN.CENTER
             else:
-                # Grid layout for multiple visuals
-                for i, visual in enumerate(visuals[:4]):
-                    row = i // 2
-                    col = i % 2
-                    box_left = Inches(0.5 + col * 4.75)
-                    box_top = current_top + row * Inches(2.3)
+                # Placeholder box
+                shape = slide.shapes.add_shape(
+                    1,  # Rectangle
+                    box_left, current_top, box_width, Inches(3.5)
+                )
+                shape.fill.solid()
+                shape.fill.fore_color.rgb = RGBColor(240, 245, 255)
+                shape.line.color.rgb = COLORS['primary']
+                shape.line.width = Pt(3)
 
-                    shape = slide.shapes.add_shape(
-                        1,
-                        box_left, box_top, Inches(4.5), Inches(2)
-                    )
-                    shape.fill.solid()
-                    shape.fill.fore_color.rgb = RGBColor(240, 245, 255)
-                    shape.line.color.rgb = COLORS['primary']
-                    shape.line.width = Pt(2)
+                tf = shape.text_frame
+                tf.word_wrap = True
+                p = tf.paragraphs[0]
+                p.text = visual
+                p.font.size = Pt(16)
+                p.font.color.rgb = COLORS['text_secondary']
+                p.alignment = PP_ALIGN.CENTER
 
-                    tf = shape.text_frame
-                    tf.word_wrap = True
-                    p = tf.paragraphs[0]
-                    p.text = visual
-                    p.font.size = Pt(14)
-                    p.font.color.rgb = COLORS['text_secondary']
-                    p.alignment = PP_ALIGN.CENTER
+    else:
+        # Grid layout for 3+ visuals (2x2 grid)
+        for i, visual in enumerate(visuals[:4]):
+            row = i // 2
+            col = i % 2
+            box_left = Inches(0.5 + col * 4.75)
+            box_top = current_top + row * Inches(2.5)
+            box_width = Inches(4.5)
+
+            img_file = None
+            if visual in image_map:
+                img_path = images_dir / image_map[visual]
+                if img_path.exists():
+                    img_file = img_path
+
+            if img_file:
+                # Display image (smaller for grid)
+                slide.shapes.add_picture(
+                    str(img_file),
+                    box_left, box_top,
+                    width=box_width,
+                    height=Inches(1.8)
+                )
+                img_bottom = box_top + Inches(1.8)
+
+                # Add caption below image
+                caption_box = slide.shapes.add_textbox(
+                    box_left, img_bottom + Inches(0.05), box_width, Inches(0.6)
+                )
+                tf = caption_box.text_frame
+                tf.word_wrap = True
+                p = tf.paragraphs[0]
+                p.text = visual
+                p.font.size = Pt(12)
+                p.font.color.rgb = COLORS['text_secondary']
+                p.alignment = PP_ALIGN.CENTER
+            else:
+                # Placeholder box
+                shape = slide.shapes.add_shape(
+                    1,
+                    box_left, box_top, box_width, Inches(2.2)
+                )
+                shape.fill.solid()
+                shape.fill.fore_color.rgb = RGBColor(240, 245, 255)
+                shape.line.color.rgb = COLORS['primary']
+                shape.line.width = Pt(2)
+
+                tf = shape.text_frame
+                tf.word_wrap = True
+                p = tf.paragraphs[0]
+                p.text = visual
+                p.font.size = Pt(12)
+                p.font.color.rgb = COLORS['text_secondary']
+                p.alignment = PP_ALIGN.CENTER
 
     # Content text at bottom
     content = slide_data.get('content', [])
