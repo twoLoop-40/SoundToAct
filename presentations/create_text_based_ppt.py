@@ -49,17 +49,11 @@ def create_text_box_with_style(slide, left, top, width, height, text, font_size=
 
 
 def create_visual_text_box(slide, left, top, width, height, text):
-    """Create a visual description text box with border"""
-    shape = slide.shapes.add_shape(
-        MSO_SHAPE.ROUNDED_RECTANGLE,
-        left, top, width, height
-    )
-    shape.fill.solid()
-    shape.fill.fore_color.rgb = COLORS['bg_light']
-    shape.line.color.rgb = COLORS['primary']
-    shape.line.width = Pt(2)
+    """Create a visual description text box (simple textbox for Keynote compatibility)"""
+    # Use simple textbox instead of rounded rectangle for better Keynote compatibility
+    text_box = slide.shapes.add_textbox(left, top, width, height)
 
-    tf = shape.text_frame
+    tf = text_box.text_frame
     tf.word_wrap = True
     tf.margin_left = Inches(0.15)
     tf.margin_right = Inches(0.15)
@@ -68,11 +62,12 @@ def create_visual_text_box(slide, left, top, width, height, text):
 
     p = tf.paragraphs[0]
     p.text = text
-    p.font.size = Pt(16)
-    p.font.color.rgb = COLORS['text_primary']
+    p.font.size = Pt(18)
+    p.font.bold = True
+    p.font.color.rgb = COLORS['primary']
     p.alignment = PP_PARAGRAPH_ALIGNMENT.LEFT
 
-    return shape
+    return text_box
 
 
 def create_title_slide(prs, slide_data):
