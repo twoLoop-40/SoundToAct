@@ -124,7 +124,7 @@ presentations/
 5. **How**: Simple 3-step process
 6. **Demo**: Show, don't just tell
 7. **Impact**: Before/After comparison
-8. **For Others**: Inclusive design
+8. **For Others**: Safety & Inclusive design (Emergency situations, elderly, workers, disabilities)
 9. **Dream**: Bigger vision
 10. **Thank You**: Call to action
 
@@ -196,6 +196,24 @@ COLORS = {
     'warning': RGBColor(245, 158, 11),    # Orange
 }
 ```
+
+## Key Features
+
+### Safety-First Design (Slide 8)
+
+The presentation now emphasizes **emergency safety** as a core use case:
+
+**🚨 Emergency Situations:**
+- Voice activation works even when you can't find your phone
+- Say "Mom" to instantly call for help in dangerous situations
+- No need to look at the screen - hands-free emergency contact
+
+**Additional Use Cases:**
+- 👴 **Elderly**: No need to read small text or navigate complex UIs
+- 💼 **Busy Workers**: Hands-free operation while driving or multitasking
+- ♿ **Disabilities**: Full voice control for visual/physical impairments
+
+This positions SoundToAct not just as a convenience tool, but as a **safety and accessibility solution**.
 
 ## Validation Results
 

@@ -412,20 +412,25 @@ apiSlide = MkSlide
   [MkAnimation Fade 0.5 0.2]
   60
 
-||| Slide 8: For Others Too - 다른 사람들도
+||| Slide 8: For Others Too - 다른 사람들도 (긴급 상황 포함)
 export
 demoLiveSlide : Slide
 demoLiveSlide = MkSlide
   8
-  ThreeColumn
+  FourQuadrant
   (MkSlideContent
     "다른 사람들도 쓸 수 있어요"
     (Just "모두를 위한 기술")
-    [ "어르신, 직장인, 장애인"
-    , "누구나 쉽게"
+    [ "긴급 상황, 어르신, 직장인, 장애인"
+    , "누구나 쉽게, 안전하게"
     ]
     []
-    [ MkVisual TextContent "[어르신 👴]" "elderly-header"
+    [ MkVisual TextContent "[긴급 상황 🚨]" "emergency-header"
+    , MkVisual TextContent "• 위험한 순간 폰 못 찾아도 OK" "emergency-1"
+    , MkVisual TextContent "• '엄마' 한마디로 즉시 연결" "emergency-2"
+    , MkVisual TextContent "• 화면 보지 않고 도움 요청" "emergency-3"
+    , MkVisual TextContent "" "spacer-0"
+    , MkVisual TextContent "[어르신 👴]" "elderly-header"
     , MkVisual TextContent "• 작은 글씨 안 보여도 OK" "elderly-1"
     , MkVisual TextContent "• 복잡한 UI 몰라도 OK" "elderly-2"
     , MkVisual TextContent "• 말만 하면 작동" "elderly-3"
@@ -440,7 +445,7 @@ demoLiveSlide = MkSlide
     , MkVisual TextContent "• 지체 장애: 터치 불필요" "disability-2"
     , MkVisual TextContent "• 음성만으로 완전 제어" "disability-3"
     ]
-    (Just "발표자 가이드: 사회적 가치 강조. '기술은 누구에게나 평등해야 합니다' 시작. 각 그룹별 pain point 설명. 실제 사용자 피드백 있으면 언급. '접근성(Accessibility)'이 핵심 가치임을 강조. 유니버설 디자인 개념 간단히 소개."))
+    (Just "발표자 가이드: 안전과 사회적 가치 강조. '긴급 상황에서 진가를 발휘합니다' 시작. 위급할 때(넘어졌을 때, 사고 시) 폰 화면 못 봐도 '엄마'라고 말하면 즉시 전화 연결되어 도움 요청 가능. 각 그룹별 pain point 설명. '기술은 누구에게나 평등해야 합니다' 강조. 접근성(Accessibility)과 안전(Safety)이 핵심 가치임을 언급."))
   [MkAnimation Appear 0.3 0.2]
   75
 
